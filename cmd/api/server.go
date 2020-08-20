@@ -78,7 +78,7 @@ func initConfig() {
 	cfg.Log.LogPath = viper.GetString("server.Logpath")
 
 	exist, err := PathExists(cfg.Log.LogPath)
-	logrus.Printf("日志路径: %s", cfg.Log.LogPath)
+	//logrus.Printf("日志路径: %s", cfg.Log.LogPath)
 	if err != nil {
 		logrus.Errorf("Get dir error ![%v]\n", err)
 	}
