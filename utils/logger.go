@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"fmt"
 	"gin-admin/config"
 	"github.com/gin-gonic/gin"
 	rotatelogs "github.com/lestrrat/go-file-rotatelogs"
@@ -29,9 +28,7 @@ func NewLogger() {
 	//}
 	//Logger.Out = src
 
-	fmt.Printf("日志路径%s,日志名字: %s,", cfg.Log.LogPath, cfg.Log.LogName)
 	LogPath := path.Join(cfg.Log.LogPath, cfg.Log.LogName)
-	fmt.Printf("log: %s", LogPath)
 
 	logWriter, err := rotatelogs.New(
 		LogPath+".%Y-%m-%d-%H-%M.log",
@@ -70,13 +67,13 @@ func GinRus(logger loggerEntryWithfields, timeFormat string, utc bool) gin.Handl
 		}
 
 		entry := logger.WithFields(logrus.Fields{
-			"status":        c.Writer.Status(),
-			"method":        c.Request.Method,
-			"path":          requestPath,
-			"ip":            c.ClientIP(),
-			"latency":       latency,
-			"user-agent":    c.Request.UserAgent(),
-			"time":          end.Format(timeFormat),
+			"status":     c.Writer.Status(),
+			"method":     c.Request.Method,
+			"path":       requestPath,
+			"ip":         c.ClientIP(),
+			"latency":    latency,
+			"user-agent": c.Request.UserAgent(),
+			"time":       end.Format(timeFormat),
 		})
 
 		if len(c.Errors) > 0 {

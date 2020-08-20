@@ -4,7 +4,7 @@ import (
 	"gin-admin/config"
 	"gin-admin/controllers"
 	"gin-admin/utils"
-	"github.com/bamzi/jobrunner"
+	 "github.com/bamzi/jobrunner"
 	"github.com/gin-gonic/gin"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"time"
@@ -37,6 +37,6 @@ func InitRouter() *gin.Engine {
 
 	}
 
-	jobrunner.Start()
+	 jobrunner.Start()
 	return route
 }
