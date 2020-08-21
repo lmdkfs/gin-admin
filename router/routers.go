@@ -31,7 +31,7 @@ func InitRouter() *gin.Engine {
 	}
 	jobsRouter := route.Group("/job")
 	{
-		jobsRouter.POST("/add", controllers.AddJob)
+		jobsRouter.POST("/add/:seconds", controllers.AddJob)
 		jobsRouter.GET("/list", controllers.ListJobs)
 		jobsRouter.DELETE("/del/:jobID", controllers.RemoveJob)
 

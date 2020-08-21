@@ -14,6 +14,7 @@ import (
 
 type jobTest struct {
 	jobID int
+	seconds string
 }
 
 func (j jobTest) Run() {
@@ -22,12 +23,14 @@ func (j jobTest) Run() {
 	utils.Logger.WithFields(logrus.Fields{
 		"time": now,
 		"jobID": j.jobID,
-	}).Info("Every 2 sec execute job -->")
+	}).Infof("Every %s sec execute job -->", j.seconds)
 }
 
 func AddJob(c *gin.Context) {
 	utils.Logger.Info("add job")
-	err := jobrunner.Schedule("@every 2s", jobTest{jobID: rand.Int()})
+	jobTimes := c.Params.ByName("seconds")
+
+	err := jobrunner.Schedule("@every "  + jobTimes + "s", jobTest{jobID: rand.Int(), seconds: jobTimes})
 	if err != nil {
 
 		c.JSON(http.StatusNotImplemented, err.Error())
