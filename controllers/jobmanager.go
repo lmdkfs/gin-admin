@@ -5,6 +5,7 @@ import (
 	"github.com/bamzi/jobrunner"
 	"github.com/gin-gonic/gin"
 	"github.com/robfig/cron/v3"
+	"github.com/sirupsen/logrus"
 	"math/rand"
 	"net/http"
 	"strconv"
@@ -17,7 +18,11 @@ type jobTest struct {
 
 func (j jobTest) Run() {
 	now := time.Now().Format("2006-01-02 15:04:05")
-	utils.Logger.Printf("time: %s, jobID: %d, Every 2 sec execute job --->\n", now, j.jobID)
+	//utils.Logger.Printf("time: %s, jobID: %d, Every 2 sec execute job --->\n", now, j.jobID)
+	utils.Logger.WithFields(logrus.Fields{
+		"time": now,
+		"jobID": j.jobID,
+	}).Info("Every 2 sec execute job -->")
 }
 
 func AddJob(c *gin.Context) {
